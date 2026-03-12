@@ -123,3 +123,11 @@ dist/protocol.schema.json
 # Synthing
 **/.stfolder/
 .dev-state
+
+# Maven
+target/
+**/target/
+.mvn/
+.flattened-pom.xml
+dependency-reduced-pom.xml
+
