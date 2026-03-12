@@ -12,8 +12,17 @@ public record OpenClawConfig(
     DiagnosticsConfig diagnostics,
     SessionConfig session,
     WebConfig web,
-    GatewayConfig gateway
+    GatewayConfig gateway,
+    AgentsConfig agents
 ) {
+    public OpenClawConfig {
+    }
+
+    public OpenClawConfig(Meta meta, LoggingConfig logging, DiagnosticsConfig diagnostics,
+                          SessionConfig session, WebConfig web, GatewayConfig gateway) {
+        this(meta, logging, diagnostics, session, web, gateway, null);
+    }
+
     public record Meta(
         String lastTouchedVersion,
         String lastTouchedAt
@@ -141,4 +150,33 @@ public record OpenClawConfig(
             String token
         ) {}
     }
+
+    public record AgentsConfig(
+        List<AgentConfig> list,
+        AgentDefaults defaults
+    ) {
+        public record AgentDefaults(
+            String workspace,
+            Object model,
+            Object heartbeat
+        ) {}
+    }
+
+    public record AgentConfig(
+        String id,
+        String name,
+        String workspace,
+        String agentDir,
+        Object model,
+        List<String> skills,
+        Object memorySearch,
+        Object humanDelay,
+        Object heartbeat,
+        Object identity,
+        Object groupChat,
+        Object subagents,
+        Object sandbox,
+        Object tools,
+        @JsonProperty("default") boolean isDefault
+    ) {}
 }
